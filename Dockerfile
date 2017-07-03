@@ -1,14 +1,8 @@
 FROM jeandet/teamcity-docker-minimal-agent
-LABEL maintainer "Alexis Jeandet <alexis.jeandet@member.fsf.org>"
+LABEL maintainer "Antoine Tavant <antoine.tavant@lpp.polytechnique.fr>"
 
-RUN dnf install -y qt5-*devel git cppcheck luabind-devel tcl-devel tk-devel lua-devel python2-devel llvm-devel clang-devel ncurses-devel llvm-static clang-analyzer lcov openmpi-devel 
+RUN dnf install -y git openmpi-devel cmake hdf5-openmpi-devel petsc-openmpi-devel hypre* gcc-gfortran module-macros gcc-c++ zlib-devel wget
 
-RUN git clone https://github.com/jeandet/vera.git /root/vera
-RUN cd /root/vera && mkdir build && cd build && cmake ../ && make -j 4 && make install
-	
-	
-RUN git clone https://github.com/KDE/clazy.git /root/clazy
-RUN cd /root/clazy && mkdir build && cd build && cmake ../ && make -j 4 && make install
 
 RUN echo "system.has_qt5=true" >> /opt/buildagent/conf/buildAgent.dist.properties && \
     echo "system.has_gcov=true" >> /opt/buildagent/conf/buildAgent.dist.properties && \
