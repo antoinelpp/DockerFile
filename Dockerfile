@@ -40,6 +40,7 @@ WORKDIR /lppic/build
  RUN export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib/
  ENV PATH=${PATH}:/usr/lib64
  RUN export HDF5_DIR=/usr/lib64/openmpi/ 
-CMD ["module load mpi"]
+CMD ["git pull"]
+CMD ["module load mpi/openmpi-x86_64"]
 CMD ["cmake .. && make clean && make lppic"]
 CMD ["/run-services.sh"]
