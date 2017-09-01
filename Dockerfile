@@ -24,7 +24,7 @@ RUN echo "system.lppic=true" >> /opt/buildagent/conf/buildAgent.dist.properties
 RUN export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib/
 ENV PATH=${PATH}:/usr/lib64 ;\
     HDF5_INCLUDE=/usr/lib64/openmpi/include
-    #HDF5_LIB
+    HDF5_LIB=/usr/lib64/openmpi/include
     #PETSC_DIR
     #HYPRE_DIR
 
