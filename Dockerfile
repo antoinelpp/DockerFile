@@ -17,6 +17,10 @@ RUN dnf install -y git openmpi-devel cmake hdf5-openmpi-devel petsc-openmpi-deve
 
 RUN echo "system.lppic=true" >> /opt/buildagent/conf/buildAgent.dist.properties
 
+# change from root to a user
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser
+USER appuser
 
 #--------------------------------------------------------------
                  #LD_LIBRARY_PATH
