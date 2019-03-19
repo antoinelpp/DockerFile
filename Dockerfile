@@ -46,6 +46,7 @@ ENV COMP=mpifort
 
 ######################
 ## Env variables for LPPic execution with OpenMPI in Dockers
+## from https://github.com/open-mpi/ompi/issues/4948
 ######################
 ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 
