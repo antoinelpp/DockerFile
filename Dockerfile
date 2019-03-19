@@ -56,7 +56,7 @@ ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 ##       Install LPPview for results post-processing
 ##########################
 RUN pip3 install numpy matplotlib h5py scipy astropy
-RUN pip3 install plasmapy tkinter
+RUN pip3 install plasmapy
 
 RUN git clone https://hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/LPPic2D/LPPview
 ENV PYTHONPATH=${PYTHONPATH}:/LPPview/
