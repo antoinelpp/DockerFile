@@ -61,3 +61,9 @@ RUN pip3 install plasmapy
 
 RUN git clone https://hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/LPPic2D/LPPview
 ENV PYTHONPATH=${PYTHONPATH}:/LPPview/
+
+
+############################
+##  Run service script for TeamCity
+############################
+CMD ["/run-services.sh"]
