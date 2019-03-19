@@ -13,6 +13,7 @@ LABEL maintainer "Antoine Tavant <antoine.tavant@lpp.polytechnique.fr>"
 ################## BEGIN INSTALLATION ######################
 
 RUN dnf install -y git openmpi-devel cmake hdf5-openmpi-devel petsc-openmpi-devel hypre* gcc-gfortran module-macros gcc-c++ zlib-devel wget
+RUN dnf -y install redhat-rpm-config python3-devel python3-tkinter
 
 
 RUN echo "system.lppic=true" >> /opt/buildagent/conf/buildAgent.dist.properties
@@ -20,18 +21,42 @@ RUN echo "system.lppic=true" >> /opt/buildagent/conf/buildAgent.dist.properties
 # change from root to a user
 RUN groupadd -g 1001 appuser && \
     useradd -r -u 1001 -g appuser appuser
-USER appuser
 
 #--------------------------------------------------------------
                  #LD_LIBRARY_PATH
 #--------------------------------------------------------------
 RUN export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib/
-ENV PATH=${PATH}:/usr/lib64 
+ENV PATH=${PATH}:/usr/lib64
     #HDF5_INCLUDE=/usr/lib64/openmpi/include
     #HDF5_LIB=/usr/lib64/gfortran/modules/openmpi/
     #PETSC_DIR
     #HYPRE_DIR
 
-RUN export HDF5_DIR=/usr/lib64/openmpi/
-CMD ["module load mpi/openmpi-x86_64"]
-CMD ["/run-services.sh"]
+######################
+## Env variables for LPPic compilation
+######################
+# RUN export HDF5_DIR=/usr/lib64/openmpi/
+ENV HDF5_INCLUDE=/usr/lib64/gfortran/modules/openmpi/
+ENV HDF5_LIB=/usr/lib64/openmpi/lib
+ENV HYPRE_INCLUDE=/usr/include/openmpi-x86_64/hypre
+ENV HYPRE_LIB=/usr/lib64/openmpi/lib
+ENV PETSC_INCLUDE=/usr/include/openmpi-x86_64/petsc
+ENV PETSC_LIB=/usr/lib64/openmpi/lib
+ENV COMP=mpifort
+
+######################
+## Env variables for LPPic execution with OpenMPI in Dockers
+######################
+ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
+
+# RUN module load mpi/openmpi-x86_64  # does not work ??
+
+
+###########################
+##       Install LPPview for results post-processing
+##########################
+RUN pip3 install numpy matplotlib h5py scipy astropy
+RUN pip3 install plasmapy tkinter
+
+RUN git clone https://hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/LPPic2D/LPPview
+ENV PYTHONPATH=${PYTHONPATH}:/LPPview/
