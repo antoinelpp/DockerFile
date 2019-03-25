@@ -18,10 +18,6 @@ RUN dnf -y install redhat-rpm-config python3-devel python3-tkinter
 
 RUN echo "system.lppic=true" >> /opt/buildagent/conf/buildAgent.dist.properties
 
-# change from root to a user
-RUN groupadd -g 1001 appuser && \
-    useradd -r -u 1001 -g appuser appuser
-
 #--------------------------------------------------------------
                  #LD_LIBRARY_PATH
 #--------------------------------------------------------------
