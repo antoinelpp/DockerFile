@@ -56,13 +56,13 @@ ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 ###########################
 ##       Install LPPview for results post-processing
 ##########################
-RUN pip3 install numpy matplotlib h5py scipy astropy
-RUN pip3 install plasmapy
+RUN pip3 install numpy matplotlib h5py scipy astropy ffmpy plasmapy pandas tqdm
 
 RUN git clone https://hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/LPPic2D/LPPview
-ENV PYTHONPATH=${PYTHONPATH}:/LPPview/
+RUN cd LPPview && pip3 install . && cd ..
 
-
+## Install for documentation
+RUN pip install ford && dnf install -y graphviz*
 ############################
 ##  Run service script for TeamCity
 ############################
