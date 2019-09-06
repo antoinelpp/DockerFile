@@ -54,7 +54,7 @@ ENV OMPI_MCA_btl_vader_single_copy_mechanism=none
 ##########################
 RUN pip3 install numpy matplotlib h5py scipy astropy ffmpy plasmapy pandas tqdm
 
-RUN git clone --recursive https://tavant@hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/Users/Tavant/DevCalcul/LPPview
+RUN git clone --recursive https://hephaistos.lpp.polytechnique.fr/rhodecode/GIT_REPOSITORIES/LPP/Users/Tavant/DevCalcul/LPPview
 RUN cd LPPview && pip3 install . && cd ..
 
 ## Install for documentation
